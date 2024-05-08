@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Complexity Analysis</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            background-image: url('finalimg.jpg');
+        }
+
+        .header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .green {
+            color: black;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        ul, ol {
+            margin-top: 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Time Complexity Analysis</h1>
+    </div>
+
+    <div class="container green">
+        <h2>Time Complexity Analysis:</h2>
+        <ul>
+            <li>The time complexity of the algorithm provided is denoted as O(n^3), where 'n' represents the length of the RNA sequence. This means that the time required for the algorithm to execute increases cubically with the size of the input RNA sequence.</li>
+            <li>Here's a detailed breakdown of the time complexity:
+                <ul>
+                    <li>Nested Loop Iterations: The algorithm features two nested loops iterating over the RNA sequence. This contributes O(n^2) time complexity to the overall computation. Each iteration of the outer loop runs the inner loop, resulting in a quadratic relationship between the time taken and the length of the RNA sequence.</li>
+                    <li>Split Point Iteration: Within the nested loops, there exists an additional loop iterating over potential split points. This loop executes 'n' times, contributing O(n) time complexity. It iterates over each position in the RNA sequence to explore possible split points where the sequence can be divided into subproblems.</li>
+                    <li>Calculation Operations: For each split point, the algorithm conducts constant-time operations to determine the maximum number of base pairs. This involves simple computations that do not vary with the length of the RNA sequence. As a result, these operations contribute O(1) time complexity to each iteration of the split point loop.</li>
+                    <li>Overall Time Complexity: Combining these factors, the overall time complexity of the algorithm is O(n^3). This is derived from the cubic relationship between the length of the RNA sequence and the time taken to complete the computation, considering all nested iterations and constant-time operations.</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container green">
+        <h2>Improvement Suggestions:</h2>
+        <ul>
+            <li>Memoization: Implement memoization techniques to store and reuse previously computed results. By memorizing intermediate solutions, redundant calculations can be avoided, leading to a reduction in overall computational time.</li>
+            <li>Algorithm Optimization: Explore alternative algorithms, such as Nussinov's algorithm, which shares a similar time complexity but may offer better constant factors and overall performance. This involves researching and implementing more efficient approaches to solve the RNA folding problem.</li>
+            <li>Parallelization: Parallelize the algorithm to leverage the capabilities of multicore architectures. By dividing the computation across multiple cores, parallelization can lead to significant speedup, especially for processing larger datasets in parallel.</li>
+            <li>Data Structure Optimization: Optimize the choice of data structures and algorithms used within the algorithm. This includes selecting more efficient data structures for storing intermediate results and implementing algorithms tailored to specific tasks within the RNA folding process. By optimizing data structures and algorithms, overall computational efficiency can be improved.</li>
+        </ul>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RNA Secondary Structure Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+
+        #header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        #nav {
+            overflow: hidden;
+            background-color: #333;
+            text-align: center;
+        }
+
+        #nav input[type="file"], #nav button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+            background-color: #555;
+        }
+
+        #nav input[type="file"]:hover, #nav button:hover {
+            background-color: #777;
+        }
+
+        #nav button:active {
+            background-color: #333;
+        }
+
+        #visualization-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        svg {
+            border: 1px solid #ddd;
+            background-color: white;
+        }
+        .node circle {
+            fill: #77c878;
+            stroke: #fff;
+            stroke-width: 1.5px;
+        }
+        .node text {
+            font-size: 12px;
+            font-family: "Arial", sans-serif;
+        }
+        .link {
+            fill: none;
+            stroke: #999;
+            stroke-opacity: 0.6;
+            stroke-width: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>RNA Secondary Structure Visualization</h1>
+    </div>
+
+    <div id="nav">
+        <input type="file" id="sequenceInput" accept=".txt">
+        <input type="file" id="linkInput" accept=".json">
+        <button id="visualiseButton">Visualise</button>
+        <button id="clearButton">Clear</button>
+        <button id="prevVisualButton" onclick="window.location.href='index2.html'">Previous Visual</button>
+    </div>
+
+    <div id="visualization-container">
+        <svg id="visualization" width="1400" height="600"></svg>
+    </div>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+        document.getElementById('visualiseButton').addEventListener('click', function() {
+            const sequenceFile = document.getElementById('sequenceInput').files[0];
+            const linkFile = document.getElementById('linkInput').files[0];
+
+            if (sequenceFile && linkFile) {
+                const sequenceReader = new FileReader();
+                const linkReader = new FileReader();
+
+                sequenceReader.onload = function(e) {
+                    const sequence = e.target.result.trim();
+
+                    linkReader.onload = function(e) {
+                        const linkData = JSON.parse(e.target.result);
+                        visualize(sequence, linkData);
+                    };
+
+                    linkReader.readAsText(linkFile);
+                };
+
+                sequenceReader.readAsText(sequenceFile);
+            } else {
+                alert('Please select both a sequence file and a link file.');
+            }
+        });
+
+        document.getElementById('clearButton').addEventListener('click', function() {
+            document.getElementById('sequenceInput').value = '';
+            document.getElementById('linkInput').value = '';
+            clearVisualization();
+        });
+
+        function visualize(sequence, linkData) {
+            const svg = d3.select('#visualization'),
+                width = +svg.attr('width'),
+                height = +svg.attr('height'),
+                nodeRadius = 10;
+
+            // Create nodes for each base in the sequence
+            let nodes = sequence.split('').map((base, i) => ({
+                id: i.toString(),
+                base: base,
+                x: 200+ i * (width*0.75 / sequence.length),
+                y: height*1.85 / 2
+            }));
+
+            // Create links based on the JSON data
+            let links = linkData.links.map(l => ({
+                source: nodes.find(n => n.id === l.source),
+                target: nodes.find(n => n.id === l.target)
+            }));
+
+            // Draw links as arcs
+            svg.selectAll('.link')
+                .data(links)
+                .enter().append('path')
+                .attr('class', 'link')
+                .attr('d', d => {
+                    // Calculate a simple arc path
+                    let dx = d.target.x - d.source.x,
+                        dy = d.target.y - d.source.y,
+                        dr = Math.sqrt(dx * dx + dy * dy);
+                    // Quadratic bezier: Q control-point-x1,control-point-y1 end-x,end-y
+                    let qx = (d.source.x + d.target.x) / 2;
+                    return `M${d.source.x},${d.source.y} Q${qx},${d.source.y - dr} ${d.target.x},${d.target.y}`;
+                });
+
+            // Draw nodes
+            let nodeGroup = svg.selectAll('.node')
+                .data(nodes)
+                .enter().append('g')
+                .attr('class', 'node');
+
+            nodeGroup.append('circle')
+                .attr('r', nodeRadius)
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y);
+
+            nodeGroup.append('text')
+                .attr('x', d => d.x)
+                .attr('y', d => d.y + 4)
+                .attr('text-anchor', 'middle')
+                .text(d => d.base);
+        }
+
+        function clearVisualization() {
+            d3.selectAll('.link').remove();
+            d3.selectAll('.node').remove();
+        }
+    </script>
+</body>
+</html>
