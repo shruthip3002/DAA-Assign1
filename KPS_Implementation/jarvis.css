@@ -1,0 +1,39 @@
+/* Additional styling for the Jarvis March page */
+#jarvis {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    line-height: 1.7;
+}
+
+#jarvis h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#jarvis p {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #f8f8f8;
+    border-left: 4px solid #007bff;
+    border-radius: 3px;
+}
+
+#jarvis a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 15px;
+    margin-top: 10px;
+    background: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#jarvis a:hover {
+    background-color: #0056b3;
+}
