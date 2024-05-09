@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPS Algorithm</title>
+    <link rel="stylesheet" href="kps.css">
+</head>
+<body>
+    <!-- Third Page - KPS -->
+    <div id="kps">
+        <h1>KPS Algorithm</h1>
+        <p>Here you will find information about KPS algorithm.</p>
+        <!-- Add more details about KPS algorithm if needed -->
+        <h2>Time Complexity Analysis</h2>
+        <p>
+            The time complexity of the Kirkpatrick-Seidel (KPS) algorithm, which is used to compute the convex hull of a set of points in two dimensions, is 
+            \(O(n \log h)\), where \(n\) is the number of input points and \(h\) is the number of points on the convex hull.
+        </p>
+        <p>Here's a breakdown of the time complexity:</p>
+        <ol>
+            <li><strong>Initial Sorting:</strong>
+                <ul>
+                    <li>Sorting the input points initially takes \(O(n \log n)\) time using an efficient sorting algorithm like quicksort or mergesort.</li>
+                </ul>
+            </li>
+            <li><strong>Divide-and-Conquer Phase:</strong>
+                <ul>
+                    <li>The divide-and-conquer phase of the KPS algorithm recurses on the left and right subsets of the input points.</li>
+                    <li>Each recursion level splits the set of points in half, resulting in \(O(\log n)\) levels.</li>
+                    <li>At each level, finding the upper and lower bridges takes linear time, which is \(O(n)\).</li>
+                    <li>Thus, the total time spent in this phase is \(O(n \log n)\).</li>
+                </ul>
+            </li>
+            <li><strong>Merging Phase:</strong>
+                <ul>
+                    <li>After finding the upper and lower bridges, merging them together to form the convex hull takes linear time, which is \(O(n)\).</li>
+                </ul>
+            </li>
+        </ol>
+        <p>
+            Overall, the time complexity of the KPS algorithm is dominated by the divide-and-conquer phase, resulting in a total time complexity of \(O(n \log h)\), where \(h\) is the number of points on the convex hull. Since \(h \leq n\), in the worst case scenario where all points are on the convex hull, the time complexity simplifies to \(O(n \log n)\).
+        </p>
+        <a href="kps_code.html">View KPS Algorithm Code</a>
+    </div>
+</body>
+</html>

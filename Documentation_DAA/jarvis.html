@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jarvis March Algorithm</title>
+    <link rel="stylesheet" href="jarvis.css">
+</head>
+<body>
+    <!-- Second Page - Jarvis March -->
+    <div id="jarvis">
+        <h1>Jarvis March Algorithm</h1>
+        <p>Here you will find information about Jarvis March algorithm.</p>
+        <p>The time complexity of Jarvis March algorithm depends on the number of points \( n \) and the number of points on the convex hull \( h \).</p>
+        <p>The outer loop iterates through each point to find the leftmost point, which takes \( O(n) \) time.</p>
+        <p>For each point on the convex hull, finding the next point with the maximum angle takes \( O(n) \) time.</p>
+        <p>In the worst case, each point is part of the convex hull. Therefore, the total time complexity is \( O(nh) \).</p>
+        <p>In the worst case scenario, when the number of points on the convex hull is \( h = n \), the time complexity becomes \( O(n^2) \). However, in typical scenarios, the convex hull usually has fewer points than the total number of points, leading to an average-case complexity of \( O(nh) \), which can be much better than \( O(n^2) \).</p>
+        <a href="jarvis_code.html">View Jarvis March Algorithm Code</a>
+    </div>
+</body>
+</html>
